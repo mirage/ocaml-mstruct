@@ -37,8 +37,8 @@ val parse_error_buf: t -> ('a, unit, string, 'b) format4 -> 'a
 val parse_error: ('a, unit, string, 'b) format4 -> 'a
 (** Raise an exception *)
 
-val dump: ?msg:string -> t -> unit
-(** Dump the buffer *)
+val dump: ?msg:string -> ?level:Log.log_level -> t -> unit
+(** Dump the buffer. By default, use [Log.INFO]. *)
 
 (** {Basic IO operations} *)
 
@@ -94,23 +94,10 @@ val set_string: t -> string -> unit
 
 (** {2 Bigarrays} *)
 
-type ba = Cstruct.buffer
-(** ocaml-cstruct's buffers are windows on top of bigarrays. *)
+val of_bigarray: ?off:int -> ?len:int -> Cstruct.buffer -> t
+(** [of_bigarray ~off ~len b] is the mstruct contained in [b] starting
+    at [off], of length [len]. *)
 
-(** Create a bigarray. *)
-val create_ba: int -> ba
-
-val dump_ba: ?msg:string -> ba -> unit
-(** Dump a bigarray. *)
-
-val pretty_ba: ba -> string
-(** Pretty print a big array. *)
-
-(** Length of a bigarray. *)
-val length_ba: ba -> int
-
-(** Create a new buffer. *)
-val of_ba: ba -> t
-
-(** Accessor. Return the underlying big array. *)
-val to_ba: t -> ba
+val to_bigarray: t -> Cstruct.buffer
+(** Accessor. Return the whole underlying bigarray (discard the
+    bounds). *)

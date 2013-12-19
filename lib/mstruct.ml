@@ -20,11 +20,11 @@ type t = {
   mutable buffer: Cstruct.t;
 }
 
-let to_ba t =
+let to_bigarray t =
   t.buffer.Cstruct.buffer
 
-let of_ba ba =
-  let buffer = Cstruct.of_bigarray ba in
+let of_bigarray ?off ?len ba =
+  let buffer = Cstruct.of_bigarray ?off ?len ba in
  { buffer }
 
 let length t =
@@ -33,39 +33,19 @@ let length t =
 let length_ba ba =
   Bigarray.Array1.dim ba
 
-let debug fmt =
-  Printf.kprintf (fun str ->
-      Log.debug (lazy str)
-    ) fmt
-
 external unsafe_blit_bigstring_to_string :
   Cstruct.buffer -> int -> string -> int -> int -> unit
   = "caml_blit_bigstring_to_string" "noalloc"
 
-let dump_ba ?msg ba =
-  if Log.get_log_level () = Log.DEBUG then
-    let len = length_ba ba in
-    let str = String.create len in
-    unsafe_blit_bigstring_to_string ba 0 str 0 len;
-    let msg = match msg with None -> "" | Some msg -> msg ^ " " in
-    debug "%s\027[33m[[ %S ]]\027[m" msg str
+let sf fmt = Printf.sprintf fmt
 
-let dump ?msg t =
-  if Log.get_log_level () = Log.DEBUG then
+let dump ?msg ?(level = Log.INFO) t =
+  if Log.get_log_level () >= level then (
     let dbg = Cstruct.debug t.buffer in
     let str = Cstruct.to_string (Cstruct.shift t.buffer (-t.buffer.Cstruct.off)) in
     let msg = match msg with None -> "" | Some msg -> msg ^ " " in
-    debug "%s\027[33m[[ %s %S ]]\027[m" msg dbg str
-
-let pretty_ba ba =
-  if Log.get_log_level () = Log.DEBUG then
-    let len = length_ba ba in
-    let str = String.create len in
-    unsafe_blit_bigstring_to_string ba 0 str 0 len;
-    Printf.sprintf "%S" str
-  else
-    ""
-
+    Log.log level (lazy (sf "%s\027[33m[[ %s %S ]]\027[m" msg dbg str))
+  )
 exception Parse_error of string
 
 let parse_error_buf buf fmt =
@@ -97,11 +77,11 @@ let create len =
   { buffer }
 
 let set t len fn c =
-  debug "set (%d)" len;
-  dump ~msg:"-->" t;
+  Log.debug (lazy (sf "set (%d)" len));
+  dump ~msg:"-->" ~level:Log.DEBUG t;
   fn t.buffer 0 c;
   t.buffer <- Cstruct.shift t.buffer len;
-  dump ~msg:"<--" t
+  dump ~msg:"<--" ~level:Log.DEBUG t
 
 let set_char t c =
   set t 1 Cstruct.set_char c
