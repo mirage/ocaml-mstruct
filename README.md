@@ -14,9 +14,6 @@ val b : Mstruct.t = <abstr>
 2013-12-19 20:09:50.610 DEBUG: --> [[ t=[0,9](9) "xxxxxxxxx" ]]
 2013-12-19 20:09:50.610 DEBUG: <-- [[ t=[5,4](9) "helloxxxx" ]]
 - : unit = ()
-# Mstruct.set_int32 b 32l;;
-Error: Unbound value Mstruct.set_int32
-Did you mean set_uint32?
 # Mstruct.set_uint32 b 32l;;
 2013-12-19 20:10:31.187 DEBUG: set (4)
 2013-12-19 20:10:31.187 DEBUG: --> [[ t=[5,4](9) "helloxxxx" ]]
