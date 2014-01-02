@@ -23,8 +23,20 @@ type t
 val create: int -> t
 (** Create a new buffer. *)
 
-(** Get the buffer length. *)
 val length: t -> int
+(** Get the buffer length. *)
+
+val offset: t -> int
+(** Get the buffer offset. *)
+
+val sub: t -> int -> int -> t
+(** Return a sub-window of the given buffer window. *)
+
+val clone: t -> t
+(** Clone the window buffer (the actual contents is still shared). *)
+
+val shift: t -> int -> unit
+(** Shift the buffer window. Negative offsets are supported. *)
 
 (** {2 Errors} *)
 
@@ -69,6 +81,19 @@ val pick_string: t -> int -> string option
 (** [pick_string buf len] looks for the string of size [len] in the
     buffer, without consuming it. Return [None] if the buffer is
     bigger than [len]. *)
+
+val get_delim: t -> char -> (t -> 'a) -> 'a option
+(** [get_delim buf c fn] builds a subwindow of [buf] by looking at the
+    first occurence of the character [c]. Once the window is built, apply
+    [fn] on the resulting buffer. Return [None] if [c] does not appear in
+    the current buffer. *)
+
+val get_string_delim: t -> char -> string option
+(** [get_string_delim buf c] returns the string appearing between the
+    start of the buffer [buf] and ending at the first occurence of the
+    character [c]. Return [None] if [c] does not appear in [buf]. *)
+
+(** {2 Setters} *)
 
 val set_char: t -> char -> unit
 (** [set_char buf off c] write the character [c] in [buf] at offset

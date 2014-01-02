@@ -30,6 +30,9 @@ let of_bigarray ?off ?len ba =
 let length t =
   Cstruct.len t.buffer
 
+let offset t =
+  t.buffer.Cstruct.off
+
 let length_ba ba =
   Bigarray.Array1.dim ba
 
@@ -141,3 +144,56 @@ let pick_string t len =
     Cstruct.blit_to_string t.buffer 0 str 0 len;
     Some str
   )
+
+let index t c =
+  let off = t.buffer.Cstruct.off in
+  let n = t.buffer.Cstruct.len in
+  let rec aux i =
+    if i >= n then None
+    else if t.buffer.Cstruct.buffer.{off+i} = c
+    then Some i
+    else aux (i+1) in
+  aux 0
+
+let sub t off len =
+  if off < 0 || off + len > length t then
+    parse_error_buf t "sub (off=%d len=%d)" off len;
+  let buffer =
+    Cstruct.of_bigarray
+      ~off:(t.buffer.Cstruct.off + off)
+      ~len
+      t.buffer.Cstruct.buffer in
+  { buffer }
+
+let shift t off =
+  let buffer =
+    Cstruct.of_bigarray
+      ~off:(t.buffer.Cstruct.off + off)
+      ~len:(t.buffer.Cstruct.len - off)
+      t.buffer.Cstruct.buffer in
+  t.buffer <- buffer
+
+let clone t =
+  let buffer =
+    Cstruct.of_bigarray
+      ~off:t.buffer.Cstruct.off
+      ~len:t.buffer.Cstruct.len
+      t.buffer.Cstruct.buffer in
+  { buffer }
+
+let with_delim t c =
+  match index t c with
+  | None   -> None
+  | Some i -> Some (sub t 0 i)
+
+let get_delim t0 c fn =
+  match with_delim t0 c with
+  | None    -> None
+  | Some t1 ->
+    let len = length t1 in
+    let s = fn t1 in
+    shift t0 (len + 1);
+    Some s
+
+let get_string_delim t c =
+  get_delim t c (fun t -> get_string t (length t))
