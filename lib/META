@@ -1,6 +1,6 @@
 # OASIS_START
-# DO NOT EDIT (digest: 6f264b41e6639eea9384ffa28a5b0f7c)
-version = "0.1.0"
+# DO NOT EDIT (digest: f188dfec7a5f4bc3dd717c9ccaa9ff66)
+version = "1.0.0"
 description = "Mutable layer on top of cstruct"
 requires = "cstruct dolog"
 archive(byte) = "mstruct.cma"
