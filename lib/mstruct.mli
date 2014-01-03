@@ -72,15 +72,15 @@ val get_char: t -> char
 val get_uint8: t -> int
 (** [get_uint8 buf] is the 8 bit unsigned integer stored in [buf]. *)
 
-val get_uint16: t -> int
+val get_be_uint16: t -> int
 (** [get_uint16 buf] is the 16 bit long big-endian unsigned integer
     stored in [buf]. *)
 
-val get_uint32: t -> int32
+val get_be_uint32: t -> int32
 (** [get_uint32 buf] is the 32 bit long big-endian unsigned integer
     stored in [buf]. *)
 
-val get_uint64: t -> int64
+val get_be_uint64: t -> int64
 (** [get_uint64 buf] is the 64 bit long big-endian unsigned integer
     stored in [buf]. *)
 
@@ -112,15 +112,15 @@ val set_char: t -> char -> unit
 val set_uint8: t -> int -> unit
 (** [set_uint8 buf] write the 8 bit long integer stored in [buf]. *)
 
-val set_uint16: t -> int -> unit
+val set_be_uint16: t -> int -> unit
 (** [set_uint16 buf i] writes the 16 bit long big-endian unsigned
     integer [i] in [buf]. *)
 
-val set_uint32: t -> int32 -> unit
+val set_be_uint32: t -> int32 -> unit
 (** [set_uint32 buf i] writes the 32 bit long big-endian unsigned
     integer [i] in [buf]. *)
 
-val set_uint64: t -> int64 -> unit
+val set_be_uint64: t -> int64 -> unit
 (** [set_uint64 buf i] writes the 64 bit long big-endian unsigned
     integer [i] in [buf]. *)
 

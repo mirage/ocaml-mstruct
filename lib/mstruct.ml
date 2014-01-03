@@ -99,13 +99,13 @@ let set_char t c =
 let set_uint8 t c =
   set t 1 Cstruct.set_uint8 c
 
-let set_uint16 t c =
+let set_be_uint16 t c =
   set t 2 Cstruct.BE.set_uint16 c
 
-let set_uint32 t c =
+let set_be_uint32 t c =
   set t 4 Cstruct.BE.set_uint32 c
 
-let set_uint64 t c =
+let set_be_uint64 t c =
   set t 8 Cstruct.BE.set_uint64 c
 
 let set_le_uint16 t c =
@@ -134,13 +134,13 @@ let get_char t =
 let get_uint8 t =
   get t 1 Cstruct.get_uint8
 
-let get_uint16 t =
+let get_be_uint16 t =
   get t 2 Cstruct.BE.get_uint16
 
-let get_uint32 t =
+let get_be_uint32 t =
   get t 4 Cstruct.BE.get_uint32
 
-let get_uint64 t =
+let get_be_uint64 t =
   get t 8 Cstruct.BE.get_uint64
 
 let get_le_uint16 t =
