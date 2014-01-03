@@ -23,6 +23,12 @@ type t
 val create: int -> t
 (** Create a new buffer. *)
 
+val of_string: ?allocator:(int -> Cstruct.t) -> string -> t
+(** Create a buffer from a string. *)
+
+val to_string: t -> string
+(** Create a string from a buffer. *)
+
 val length: t -> int
 (** Get the buffer length. *)
 

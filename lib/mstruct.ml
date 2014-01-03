@@ -25,7 +25,14 @@ let to_bigarray t =
 
 let of_bigarray ?off ?len ba =
   let buffer = Cstruct.of_bigarray ?off ?len ba in
- { buffer }
+  { buffer }
+
+let of_string ?allocator s =
+  let buffer = Cstruct.of_string ?allocator s in
+  { buffer }
+
+let to_string t =
+  Cstruct.to_string t.buffer
 
 let length t =
   Cstruct.len t.buffer
