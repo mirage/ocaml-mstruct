@@ -1,3 +1,6 @@
+1.1.1:
+* Export `Mstruct.index`
+
 1.1.0: (2014-01-03)
 * Add `Mstruct.to_string` and `Mstruct.of_string`
 
