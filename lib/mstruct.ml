@@ -108,6 +108,15 @@ let set_uint32 t c =
 let set_uint64 t c =
   set t 8 Cstruct.BE.set_uint64 c
 
+let set_le_uint16 t c =
+  set t 2 Cstruct.LE.set_uint16 c
+
+let set_le_uint32 t c =
+  set t 4 Cstruct.LE.set_uint32 c
+
+let set_le_uint64 t c =
+  set t 8 Cstruct.LE.set_uint64 c
+
 let set_string t str =
   let len = String.length str in
   set t len (fun _ _ _ ->
@@ -133,6 +142,15 @@ let get_uint32 t =
 
 let get_uint64 t =
   get t 8 Cstruct.BE.get_uint64
+
+let get_le_uint16 t =
+  get t 2 Cstruct.LE.get_uint16
+
+let get_le_uint32 t =
+  get t 4 Cstruct.LE.get_uint32
+
+let get_le_uint64 t =
+  get t 8 Cstruct.LE.get_uint64
 
 let get_string t len =
   if len = 0 then ""

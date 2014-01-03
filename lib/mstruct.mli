@@ -127,6 +127,32 @@ val set_uint64: t -> int64 -> unit
 val set_string: t -> string -> unit
 (** [set_string buf str] write the string [str] into [buf]. *)
 
+(** {2 Little endian} *)
+
+val get_le_uint16: t -> int
+(** [get_uint16 buf] is the 16 bit long little-endian unsigned integer
+    stored in [buf]. *)
+
+val get_le_uint32: t -> int32
+(** [get_uint32 buf] is the 32 bit long little-endian unsigned integer
+    stored in [buf]. *)
+
+val get_le_uint64: t -> int64
+(** [get_uint64 buf] is the 64 bit long little-endian unsigned integer
+    stored in [buf]. *)
+
+val set_le_uint16: t -> int -> unit
+(** [set_uint16 buf i] writes the 16 bit long little-endian unsigned
+    integer [i] in [buf]. *)
+
+val set_le_uint32: t -> int32 -> unit
+(** [set_uint32 buf i] writes the 32 bit long little-endian unsigned
+    integer [i] in [buf]. *)
+
+val set_le_uint64: t -> int64 -> unit
+(** [set_uint64 buf i] writes the 64 bit long little-endian unsigned
+    integer [i] in [buf]. *)
+
 (** {2 Bigarrays} *)
 
 val of_bigarray: ?off:int -> ?len:int -> Cstruct.buffer -> t
