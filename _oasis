@@ -1,6 +1,6 @@
 OASISFormat: 0.3
 Name:        mstruct
-Version:     1.0.0
+Version:     1.1.0
 Synopsis:    Mutable layer on top of cstruct
 Authors:     Thomas Gazagnaire
 License:     ISC
