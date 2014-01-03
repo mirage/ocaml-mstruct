@@ -44,6 +44,10 @@ val clone: t -> t
 val shift: t -> int -> unit
 (** Shift the buffer window. Negative offsets are supported. *)
 
+val index: t -> char -> int option
+(** Return the offset corresponding to the first occurence of the
+    character in the given string. *)
+
 (** {2 Errors} *)
 
 exception Parse_error of string
