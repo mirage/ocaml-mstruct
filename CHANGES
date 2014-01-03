@@ -1,5 +1,14 @@
-1.1.1:
+1.2.0: (2014-01-04)
 * Export `Mstruct.index`
+* Add `Mstruct.get_le_uint16` and `Mstruct.set_le_uint16`
+* Add `Mstruct.get_le_uint32` and `Mstruct.set_le_uint32`
+* Add `Mstruct.get_le_uint64` and `Mstruct.set_le_uint64`
+* Rename `Mstruct.get_uint16` to `Mstruct.get_be_uint16`
+* Rename `Mstruct.get_uint32` to `Mstruct.get_be_uint32`
+* Rename `Mstruct.get_uint64` to `Mstruct.get_be_uint64`
+* Rename `Mstruct.set_uint16` to `Mstruct.set_be_uint16`
+* Rename `Mstruct.set_uint32` to `Mstruct.set_be_uint32`
+* Rename `Mstruct.set_uint64` to `Mstruct.set_be_uint64`
 
 1.1.0: (2014-01-03)
 * Add `Mstruct.to_string` and `Mstruct.of_string`
