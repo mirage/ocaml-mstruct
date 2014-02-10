@@ -47,21 +47,21 @@ external unsafe_blit_bigstring_to_string :
   Cstruct.buffer -> int -> string -> int -> int -> unit
   = "caml_blit_bigstring_to_string" "noalloc"
 
-let sf fmt = Printf.sprintf fmt
+let hexdump t =
+  Cstruct.hexdump t.buffer
 
-let dump ?msg ?(level = Log.INFO) t =
-  if Log.get_log_level () >= level then (
-    let dbg = Cstruct.debug t.buffer in
-    let str = Cstruct.to_string (Cstruct.shift t.buffer (-t.buffer.Cstruct.off)) in
-    let msg = match msg with None -> "" | Some msg -> msg ^ " " in
-    Log.log level (lazy (sf "%s\027[33m[[ %s %S ]]\027[m" msg dbg str))
-  )
+let hexdump_to_buffer buf t =
+  Cstruct.hexdump_to_buffer buf t.buffer
+
+let debug t =
+  Cstruct.debug t.buffer
+
 exception Parse_error of string
 
 let parse_error_buf buf fmt =
   Printf.kprintf (fun str ->
       Printf.eprintf "\027[31mParse error:\027[m %s\n" str;
-      dump buf;
+      hexdump buf;
       raise (Parse_error str)
     ) fmt
 
@@ -71,27 +71,17 @@ let parse_error fmt =
       raise (Parse_error str)
     ) fmt
 
-(* XXX: do not 'x' the array *)
-let create_aux len =
-  let buffer = Cstruct.create len in
-  let str = String.make len 'x' in
-  Cstruct.blit_from_string str 0 buffer 0 len;
-  buffer
-
 let create_ba len =
-  let buffer = create_aux len in
+  let buffer = Cstruct.create len in
   buffer.Cstruct.buffer
 
 let create len =
-  let buffer = create_aux len in
+  let buffer = Cstruct.create len in
   { buffer }
 
 let set t len fn c =
-  Log.debug (lazy (sf "set (%d)" len));
-  dump ~msg:"-->" ~level:Log.DEBUG t;
   fn t.buffer 0 c;
-  t.buffer <- Cstruct.shift t.buffer len;
-  dump ~msg:"<--" ~level:Log.DEBUG t
+  t.buffer <- Cstruct.shift t.buffer len
 
 let set_char t c =
   set t 1 Cstruct.set_char c
@@ -181,8 +171,6 @@ let index t c =
   aux 0
 
 let sub t off len =
-  if off < 0 || off + len > length t then
-    parse_error_buf t "sub (off=%d len=%d)" off len;
   let buffer =
     Cstruct.of_bigarray
       ~off:(t.buffer.Cstruct.off + off)

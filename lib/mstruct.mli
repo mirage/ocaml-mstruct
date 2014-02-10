@@ -54,13 +54,19 @@ exception Parse_error of string
 (** Parse error *)
 
 val parse_error_buf: t -> ('a, unit, string, 'b) format4 -> 'a
-(** Eventualy raise a exception *)
+(** Print an error message, the buffer contents and raise a exception *)
 
 val parse_error: ('a, unit, string, 'b) format4 -> 'a
-(** Raise an exception *)
+(** Print an error message and raise an exception *)
 
-val dump: ?msg:string -> ?level:Log.log_level -> t -> unit
-(** Dump the buffer. By default, use [Log.INFO]. *)
+val hexdump: t -> unit
+(** Same as [Cstruct.hexdump]. *)
+
+val hexdump_to_buffer: Buffer.t -> t -> unit
+(** Same as [Cstruct.hexdump_to_buffer] *)
+
+val debug: t -> string
+(** Same as [Cstruct.debug]. *)
 
 (** {Basic IO operations} *)
 
