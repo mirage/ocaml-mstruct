@@ -71,10 +71,6 @@ let parse_error fmt =
       raise (Parse_error str)
     ) fmt
 
-let create_ba len =
-  let buffer = Cstruct.create len in
-  buffer.Cstruct.buffer
-
 let create len =
   let buffer = Cstruct.create len in
   { buffer }
@@ -171,11 +167,7 @@ let index t c =
   aux 0
 
 let sub t off len =
-  let buffer =
-    Cstruct.of_bigarray
-      ~off:(t.buffer.Cstruct.off + off)
-      ~len
-      t.buffer.Cstruct.buffer in
+  let buffer = Cstruct.sub t.buffer off len in
   { buffer }
 
 let shift t off =
@@ -187,11 +179,7 @@ let shift t off =
   t.buffer <- buffer
 
 let clone t =
-  let buffer =
-    Cstruct.of_bigarray
-      ~off:t.buffer.Cstruct.off
-      ~len:t.buffer.Cstruct.len
-      t.buffer.Cstruct.buffer in
+  let buffer = t.buffer in
   { buffer }
 
 let with_delim t c =
