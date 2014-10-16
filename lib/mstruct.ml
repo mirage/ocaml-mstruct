@@ -21,7 +21,7 @@ type t = {
 }
 
 let to_bigarray t =
-  t.buffer.Cstruct.buffer
+  Cstruct.to_bigarray t.buffer
 
 let of_bigarray ?off ?len ba =
   let buffer = Cstruct.of_bigarray ?off ?len ba in
