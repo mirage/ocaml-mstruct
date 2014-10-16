@@ -34,6 +34,12 @@ let of_string ?allocator s =
 let to_string t =
   Cstruct.to_string t.buffer
 
+let to_cstruct t = t.buffer
+
+let of_cstruct buffer = { buffer }
+
+let with_mstruct c f = f (of_cstruct c)
+
 let length t =
   Cstruct.len t.buffer
 

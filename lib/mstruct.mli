@@ -166,5 +166,15 @@ val of_bigarray: ?off:int -> ?len:int -> Cstruct.buffer -> t
     at [off], of length [len]. *)
 
 val to_bigarray: t -> Cstruct.buffer
-(** Accessor. Return the whole underlying bigarray (discard the
-    bounds). *)
+(** Accessor. Return the underlying bigarray. *)
+
+(** {2 Cstructs} *)
+
+val of_cstruct: Cstruct.t -> t
+(** Create mutable cstruct. *)
+
+val to_cstruct: t -> Cstruct.t
+(** Create an immutable cstruct. *)
+
+val with_mstruct: Cstruct.t -> (t -> unit) -> unit
+(** [with_mstruct c f] apply [f] to [of_cstruct c]. *)
