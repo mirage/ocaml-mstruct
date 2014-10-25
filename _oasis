@@ -11,4 +11,4 @@ Library mstruct
   Path: lib/
   Findlibname: mstruct
   Modules: Mstruct
-  BuildDepends:	cstruct, dolog
+  BuildDepends: cstruct

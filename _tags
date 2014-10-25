@@ -1,8 +1,9 @@
 # OASIS_START
-# DO NOT EDIT (digest: 3557a79d140e4a286c0ad7c49c344078)
+# DO NOT EDIT (digest: 1c25835cde873e43102108144fe1d480)
 # Ignore VCS directories, you can use the same kind of rule outside
 # OASIS_START/STOP if you want to exclude directories that contains
 # useless stuff for the build process
+true: annot, bin_annot
 <**/.svn>: -traverse
 <**/.svn>: not_hygienic
 ".bzr": -traverse
@@ -15,6 +16,5 @@
 "_darcs": not_hygienic
 # Library mstruct
 "lib/mstruct.cmxs": use_mstruct
-<lib/*.ml{,i}>: pkg_cstruct
-<lib/*.ml{,i}>: pkg_dolog
+<lib/*.ml{,i,y}>: pkg_cstruct
 # OASIS_STOP
