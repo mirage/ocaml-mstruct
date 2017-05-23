@@ -1,52 +1,17 @@
-# OASIS_START
-# DO NOT EDIT (digest: a3c674b4239234cbbe53afe090018954)
 
-SETUP = ocaml setup.ml
+.PHONY: build clean test
 
-build: setup.data
-	$(SETUP) -build $(BUILDFLAGS)
+build:
+	jbuilder build @install
 
-doc: setup.data build
-	$(SETUP) -doc $(DOCFLAGS)
+test:
+	jbuilder runtest
 
-test: setup.data build
-	$(SETUP) -test $(TESTFLAGS)
+install:
+	jbuilder install
 
-all:
-	$(SETUP) -all $(ALLFLAGS)
-
-install: setup.data
-	$(SETUP) -install $(INSTALLFLAGS)
-
-uninstall: setup.data
-	$(SETUP) -uninstall $(UNINSTALLFLAGS)
-
-reinstall: setup.data
-	$(SETUP) -reinstall $(REINSTALLFLAGS)
+uninstall:
+	jbuilder uninstall
 
 clean:
-	$(SETUP) -clean $(CLEANFLAGS)
-
-distclean:
-	$(SETUP) -distclean $(DISTCLEANFLAGS)
-
-setup.data:
-	$(SETUP) -configure $(CONFIGUREFLAGS)
-
-configure:
-	$(SETUP) -configure $(CONFIGUREFLAGS)
-
-.PHONY: build doc test all install uninstall reinstall clean distclean configure
-
-# OASIS_STOP
-
-VERSION = $(shell grep 'Version:' _oasis | sed 's/Version: *//')
-NAME    = ocaml-$(shell grep 'Name:' _oasis    | sed 's/Name: *//')
-ARCHIVE = https://github.com/mirage/$(NAME)/archive/
-
-release:
-	git tag -a $(VERSION) -m "Version $(VERSION)."
-	git push upstream $(VERSION)
-	opam publish prepare $(NAME).$(VERSION) $(ARCHIVE)/$(VERSION).tar.gz
-	opam publish submit $(NAME).$(VERSION)
-	rm -rf $(NAME).$(VERSION)
+	rm -rf _build *.install

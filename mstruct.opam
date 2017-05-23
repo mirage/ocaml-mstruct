@@ -5,13 +5,9 @@ license:      "ISC"
 homepage:     "https://github.com/mirage/ocaml-mstruct"
 dev-repo:     "https://github.com/mirage/ocaml-mstruct.git"
 bug-reports:  "https://github.com/mirage/ocaml-mstruct/issues"
-
-build: [
-  ["./configure" "--prefix" prefix]
-  [make]
-]
-install: [make "install"]
-remove: ["ocamlfind" "remove" "mstruct"]
+build: [ [ "jbuilder" "build" ] ]
+build-test: [ [ "jbuilder" "runtest" ] ]
 depends: [
+  "jbuilder" {>="1.0.0+beta7"}
   "cstruct" {>= "1.4.0"}
 ]

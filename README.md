@@ -1,4 +1,5 @@
-## Mstruct
+Mstruct - a mutable interface to Cstruct buffers
+------------------------------------------------
 
 Mutable [cstruct](https://github.com/mirage/ocaml-cstruct) buffers.
 
