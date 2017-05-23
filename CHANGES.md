@@ -2,6 +2,7 @@ v1.3.3 2017-05-23
 -----------------
 
 * Port to [Jbuilder](https://github.com/janestreet/jbuilder).
+* Modernise Travis CI matrix.
 
 v1.3.2 2014-12-19
 -----------------
