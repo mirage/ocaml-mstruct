@@ -1,17 +1,31 @@
-1.3.2 (2014-12-19)
+v1.3.3 2017-05-23
+-----------------
+
+* Port to [Jbuilder](https://github.com/janestreet/jbuilder).
+* Modernise Travis CI matrix.
+
+v1.3.2 2014-12-19
+-----------------
+
 * Remove the dependency to dolog
 
-1.3.1 (2014-10-16)
-* Add Mstruct.to_cstruct, Mstruct.of_cstruct and Mstruct.with_mstruct
-* Fix Mstruct.to_bigarray to return the current window instead of the whole bigarray
+v1.3.1 2014-10-16
+------------------
 
-1.3.0: (2014-02-10)
+* Add `Mstruct.to_cstruct`, `Mstruct.of_cstruct` and `Mstruct.with_mstruct`
+* Fix `Mstruct.to_bigarray` to return the current window instead of the whole bigarray
+
+v1.3.0 2014-02-10
+----------------
+
 * Remove debugging message in hot path
 * Remove duplicated bound checks (which were already done by cstruct)
 * Remove `Mstruct.dump`, replace it by `Mstruct.{hexdump,hexdump_to_buffer,debug}`
   to share the same API as `Cstruct`
 
-1.2.0: (2014-01-04)
+v1.2.0 2014-01-04
+-----------------
+
 * Export `Mstruct.index`
 * Add `Mstruct.get_le_uint16` and `Mstruct.set_le_uint16`
 * Add `Mstruct.get_le_uint32` and `Mstruct.set_le_uint32`
@@ -23,15 +37,21 @@
 * Rename `Mstruct.set_uint32` to `Mstruct.set_be_uint32`
 * Rename `Mstruct.set_uint64` to `Mstruct.set_be_uint64`
 
-1.1.0: (2014-01-03)
+v1.1.0 2014-01-03
+-----------------
+
 * Add `Mstruct.to_string` and `Mstruct.of_string`
 
-1.0.0: (2014-01-02)
+v1.0.0 2014-01-02
+-----------------
+
 * Add `Mstruct.offset`
 * Add `Mstruct.sub`
 * Add `Mstruct.clone`
 * Add `Mstruct.shift`
 * Add `Mstruct.get_delim` to scan for a given character in a window buffer
 
-0.9.0: (2013-19-12)
+v0.9.0 2013-19-12
+-----------------
+
 * Initial release
