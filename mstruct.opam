@@ -8,6 +8,6 @@ bug-reports:  "https://github.com/mirage/ocaml-mstruct/issues"
 build: [ [ "jbuilder" "build" ] ]
 build-test: [ [ "jbuilder" "runtest" ] ]
 depends: [
-  "jbuilder" {>="1.0+beta7"}
+  "jbuilder" {build & >="1.0+beta7"}
   "cstruct" {>= "1.4.0"}
 ]
