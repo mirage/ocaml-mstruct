@@ -14,7 +14,7 @@
  * OR IN CONNECTION WITH THE USE OR PERFORMANCE OF THIS SOFTWARE.
  *)
 
-(** Bigarrays *)
+(** Mutable byte windows on top of Cstruct bigarrays *)
 
 type t
 (** Type for mutable windows on top of bigarrays, with bounds
