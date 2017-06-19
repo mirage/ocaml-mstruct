@@ -4,6 +4,7 @@ v1.3.4 2017-06-19
 * Documentation fixes in odoc comments.
 * Refine opam constraints on cstruct.
 * Rename LICENSE file to markdown to be topkg compliant.
+* Add topkg-jbuilder integration.
 
 v1.3.3 2017-05-23
 -----------------
