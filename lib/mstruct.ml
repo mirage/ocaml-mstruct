@@ -151,15 +151,15 @@ let get_string t len =
     get t len (fun _ _ ->
         Cstruct.blit_to_string t.buffer 0 str 0 len;
       );
-    str
+    Bytes.to_string str
 
 let pick_string t len =
   if len = 0 then Some ""
   else if len > length t then None
   else (
-    let str = String.create len in
+    let str = Bytes.create len in
     Cstruct.blit_to_string t.buffer 0 str 0 len;
-    Some str
+    Some (Bytes.to_string str)
   )
 
 let index t c =
