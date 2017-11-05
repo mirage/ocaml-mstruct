@@ -147,7 +147,7 @@ let get_le_uint64 t =
 let get_string t len =
   if len = 0 then ""
   else
-    let str = String.create len in
+    let str = Bytes.create len in
     get t len (fun _ _ ->
         Cstruct.blit_to_string t.buffer 0 str 0 len;
       );
