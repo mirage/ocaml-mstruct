@@ -14,8 +14,6 @@
  * OR IN CONNECTION WITH THE USE OR PERFORMANCE OF THIS SOFTWARE.
  *)
 
-type ba = Cstruct.buffer
-
 type t = {
   mutable buffer: Cstruct.t;
 }
@@ -45,13 +43,6 @@ let length t =
 
 let offset t =
   t.buffer.Cstruct.off
-
-let length_ba ba =
-  Bigarray.Array1.dim ba
-
-external unsafe_blit_bigstring_to_string :
-  Cstruct.buffer -> int -> string -> int -> int -> unit
-  = "caml_blit_bigstring_to_string" "noalloc"
 
 let hexdump t =
   Cstruct.hexdump t.buffer
